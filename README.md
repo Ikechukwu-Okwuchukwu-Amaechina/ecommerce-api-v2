@@ -1,17 +1,31 @@
 # ecommerce-api-v2
 
-A lightweight Node.js API skeleton for an e-commerce backend. This repository is set up to evolve into a production-ready REST API.
+A lightweight Node.js API skeleton for an e-commerce backend. This repository is structured to evolve into a production-ready REST API.
 
 ## Features
 
-- Clean starting point for a Node.js/Express e-commerce API
-- Ready for environment-based configuration via .env
-- Git-friendly defaults with a Node.js .gitignore
-- Structured to add routes, models, and services incrementally
+- Conventional structure for scalable APIs (`routes`, `controllers`, `models`, `middleware`, `config`)
+- Environment-based configuration via `.env`
+- Git-friendly defaults with a Node.js `.gitignore`
+
+
+## Project Structure
+
+```
+.
+├─ config/
+├─ controllers/
+├─ middleware/
+├─ models/
+├─ routes/
+├─ package.json
+├─ README.md
+└─ .gitignore
+```
 
 ## Installation
 
-1. Ensure you have Node.js (LTS recommended) installed.
+1. Ensure Node.js (LTS) and npm are installed.
 2. Clone the repository and install dependencies.
 
 ```bash
@@ -25,17 +39,17 @@ npm install
 
 ## Usage
 
-The project currently has no start script defined. Typical next steps:
+No start script is defined yet. Suggested next steps:
 
 ```bash
-# create an entry point
+# create an entry point (index.js)
 echo "console.log('API bootstrapped');" > index.js
 
-# run it
+# run
 node index.js
 ```
 
-Feel free to add common scripts in package.json such as:
+Add helpful scripts in `package.json` when ready:
 
 ```json
 {
@@ -49,7 +63,7 @@ Feel free to add common scripts in package.json such as:
 
 ## Environment Variables
 
-Create a `.env` file at the project root for secrets and configuration:
+Create a `.env` file at the project root:
 
 ```
 PORT=3000
@@ -62,7 +76,7 @@ JWT_SECRET=
 - Node.js
 - npm
 
-You can extend with Express, TypeScript, MongoDB/PostgreSQL, Prisma/Sequelize, Jest, and Docker as needed.
+
 
 ## Author
 
@@ -70,4 +84,4 @@ Ikechukwu Okwuchukwu Amaechina
 
 ---
 
-If you run into issues or have feature ideas, please open an issue in the repository.
+Issues and feature requests are welcome in the repository.
