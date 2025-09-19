@@ -1,87 +1,72 @@
 # ecommerce-api-v2
 
-A lightweight Node.js API skeleton for an e-commerce backend. This repository is structured to evolve into a production-ready REST API.
+Minimal e‑commerce REST API with auth, products, cart, orders, and admin order management.
+
+## Setup
+
+1) Create .env
+
+PORT=3000
+MONGODB_URI=mongodb://localhost:27017/ecomm
+JWT_SECRET=changeme
+
+2) Install and run
+
+```bash
+npm install
+npm run dev
+```
 
 ## Features
 
-- Conventional structure for scalable APIs (`routes`, `controllers`, `models`, `middleware`, `config`)
-- Environment-based configuration via `.env`
-- Git-friendly defaults with a Node.js `.gitignore`
+- Auth (JWT)
+- Products CRUD
+- Cart add/view/remove
+- Orders checkout (start/confirm), list, get
+- Admin: list orders, update fulfillment status
+- Security: helmet, rate-limit on auth, mongo sanitize
+- Simple input checks (no Joi)
 
+## Endpoints
 
-## Project Structure
+All routes available both with and without /api prefix.
 
-```
-.
-├─ config/
-├─ controllers/
-├─ middleware/
-├─ models/
-├─ routes/
-├─ package.json
-├─ README.md
-└─ .gitignore
-```
+- Auth
+  - POST /auth/signup
+  - POST /auth/login
+- Products
+  - GET /products
+  - GET /products/:id
+  - POST /products (auth)
+  - PATCH /products/:id (auth)
+  - DELETE /products/:id (auth)
+- Cart (auth)
+  - GET /cart
+  - POST /cart/add
+  - DELETE /cart/remove/:id
+- Orders (auth)
+  - POST /orders/checkout – body.stage: start | confirm
+  - GET /orders
+  - GET /orders/:id
+- Admin (auth + admin)
+  - GET /admin/orders
+  - PATCH /admin/orders/:id/status – body.status: pending|shipped|delivered
 
-## Installation
+## Examples
 
-1. Ensure Node.js (LTS) and npm are installed.
-2. Clone the repository and install dependencies.
+Signup
+Request: { "email": "a@b.com", "password": "pass1234" }
+Response: { "token": "..." }
 
-```bash
-# clone
-git clone https://github.com/Ikechukwu-Okwuchukwu-Amaechina/ecommerce-api-v2.git
-cd ecommerce-api-v2
+Create product
+Headers: Authorization: Bearer <token>
+Body: { "name": "P1", "price": 10, "stock": 5, "description": "d" }
+Response: 201 + product
 
-# install
-npm install
-```
+Checkout
+1) POST /orders/checkout { "stage": "start" } -> { orderId, total }
+2) POST /orders/checkout { "stage": "confirm", "orderId": "..." } -> { message, orderId }
 
-## Usage
+## Tech
 
-No start script is defined yet. Suggested next steps:
-
-```bash
-# create an entry point (index.js)
-echo "console.log('API bootstrapped');" > index.js
-
-# run
-node index.js
-```
-
-Add helpful scripts in `package.json` when ready:
-
-```json
-{
-  "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js",
-    "test": "jest"
-  }
-}
-```
-
-## Environment Variables
-
-Create a `.env` file at the project root:
-
-```
-PORT=3000
-DATABASE_URL=
-JWT_SECRET=
-```
-
-## Technologies Used
-
-- Node.js
-- npm
-
-
-
-## Author
-
-Ikechukwu Okwuchukwu Amaechina
-
----
-
-Issues and feature requests are welcome in the repository.
+Node.js, Express, Mongoose, JWT, helmet, express-rate-limit, express-mongo-sanitize, morgan
