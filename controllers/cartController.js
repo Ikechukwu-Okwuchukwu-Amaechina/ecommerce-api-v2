@@ -8,7 +8,9 @@ const getOrCreateCart = async (userId) => {
 }
 
 exports.add = async (req, res) => {
+  
   const { productId, quantity } = req.body
+  
   if (!productId || !quantity) return res.status(400).json({ message: 'productId and quantity required' })
   const product = await Product.findById(productId)
   if (!product) return res.status(404).json({ message: 'product not found' })

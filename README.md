@@ -9,7 +9,7 @@ Minimal e‑commerce REST API with auth, products, cart, orders, and admin order
 PORT=3000
 MONGODB_URI=mongodb://localhost:27017/ecomm
 JWT_SECRET=changeme
-
+Live URL=https://ecommerce-api-v2-wd7q.onrender.com
 2) Install and run
 
 ```bash
