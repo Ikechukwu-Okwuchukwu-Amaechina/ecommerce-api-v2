@@ -10,7 +10,7 @@ const signToken = (user) => {
 exports.signup = async (req, res) => {
   try {
     const { email, password, role } = req.body
-    if (!email || !password) return res.status(400).json({ message: 'email and password required' })
+    // if (!email || !password) return res.status(400).json({ message: 'email and password required' })
     const exists = await User.findOne({ email })
     if (exists) return res.status(400).json({ message: 'email already used' })
     const user = await User.create({ email, password, role })
